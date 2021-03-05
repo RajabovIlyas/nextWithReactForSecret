@@ -1,65 +1,50 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import styled from 'styled-components'
+import Filter from "../components/Filter";
+import Content from "../components/Content";
+import {useState} from "react";
+const GridStyle=styled.div`
+  max-width: 1300px;
+  padding: 64px 30px;
+  margin:0 auto;
+  display: grid;
+  grid-template-columns: 224px 1fr;
+`
 
-export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+const getDataApi=async (value={min:undefined,max:undefined,brands:undefined})=>{
+    const params=[][2];
+    if(value.min!==null&&value.min!==undefined){
+        params.push(['price[min]',value.min.toString()])
+    }
+    if(value.max!==null&&value.max!==undefined){
+        params.push(['price[max]',value.max.toString()])
+    }
+    if(value.brands!==null&&value.brands!==undefined){
+        params.push(['brands[]',value.brands.toString()])
+    }
+    const url = new URL('https://getlens-master.stage.dev.family/api/pages/kamery')
+    url.search = new URLSearchParams(params).toString();
+    return await fetch(url).then(async res => {
+        const data = await res.json();
+        return {props: data};
+    })
 }
+
+const Index = (props) => {
+    const [data,setData]=useState(props);
+    const handleSubmit=(value)=>{
+
+    }
+    return (
+        <GridStyle>
+            <Filter handleSubmit={handleSubmit} meta={data.meta}/>
+            <Content products={data.products}/>
+        </GridStyle>
+    )
+}
+
+export const getServerSideProps = async () => {
+    return await getDataApi();
+
+}
+
+export default Index;
