@@ -8,6 +8,10 @@ const GridContent=styled.div`
   grid-gap: 12px;
   align-items: center;
   margin-left:38px;
+  @media (max-width: 768px) {
+    margin:0;
+    grid-template-columns: 1fr;
+  }
 `
 
 export default (props) => {

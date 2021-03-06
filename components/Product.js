@@ -9,12 +9,26 @@ background: #FFFFFF;
 border: 1px solid #E6E6E6;
 box-sizing: border-box;
 border-radius: 4px;
+@media (max-width: 768px) {
+width: 100%;
+height: 142px;
+display: flex;
+align-items: start;
+border: 0;
+padding-bottom: 12px;
+border-bottom: 1px solid #E6E6E6;
+margin-top: 6px;
+}
 `
 const ImgStyle = styled.img`
-width: 100%;
+width: 242px;
 height: 242px;
 margin-bottom: 12px;
 border-radius: 4px 4px 0px 0px;
+@media (max-width: 768px) {
+width: 124px;
+height: 124px;
+}
 `
 
 const ButtonStyle = styled.button`
@@ -38,12 +52,39 @@ align-items: center;
   position: relative;
   left: 12px;
   bottom : 242px;
+  @media (max-width: 768px) {
+  display: none;
   
+}
 `
 const BlockNewBottom = styled.div`
+
 margin: 0 12px;
 position: ${props => props.position || 'initial'};
 bottom:${props => props.bottom || 0};
+& div:nth-child(n){
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  align-items: center;
+  }
+  
+@media (max-width: 768px) {
+width: 100%;
+  position: initial;
+  bottom: 0;
+  & h4:first-child{
+  margin-bottom: 9px;
+  }
+  & div:nth-child(n){
+  margin-bottom: 16px;
+  }
+  & div:last-child{
+  margin-bottom: 0;
+  }
+  
+}
+
 `
 
 export default (props) => {
@@ -53,26 +94,18 @@ export default (props) => {
             <div>
                 <ImgStyle src={props.image ? props.image.desktop.webp_x2 : ''}/>
                 {props.is_new ?
-                    <GreenNewStyle><BoldText size={'10px'} color={'#FFFFFF'}>Новинка</BoldText></GreenNewStyle> : null}
+                    <GreenNewStyle>
+                        <BoldText size={'10px'} color={'#FFFFFF'}>Новинка</BoldText>
+                    </GreenNewStyle> : null}
             </div>
             <BlockNewBottom position={props.is_new ? 'relative' : null}
                             bottom={props.is_new ? '26px' : null}>
                 <Text height={'40px'} bottom={'11px'}>{props.title}</Text>
-                <div style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    marginBottom: '18px',
-                    alignItems: 'center'
-                }}>
+                <div className='price_style'>
                     <BoldText>{parseFloat(props.price)} ₽</BoldText>
                     {props.is_new ? <Text size={'11px'}>Новое</Text> : null}
                 </div>
-                <div style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    marginBottom: '18px',
-                    alignItems: 'center'
-                }}>
+                <div>
                     <ButtonStyle><Text size={'14px'}>В корзину</Text></ButtonStyle>
                     <img src='/img/svg/Like.svg'/>
                 </div>

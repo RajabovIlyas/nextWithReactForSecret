@@ -9,6 +9,10 @@ const GridStyle = styled.div`
   margin:0 auto;
   display: grid;
   grid-template-columns: 224px 1fr;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `
 
 const getDataApi = async (value = {min: undefined, max: undefined, brands: undefined}) => {
