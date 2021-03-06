@@ -7,6 +7,7 @@ const GridContent=styled.div`
   grid-template-columns: repeat(auto-fit,242px);
   grid-gap: 12px;
   align-items: center;
+  margin-left:38px;
 `
 
 export default (props) => {
