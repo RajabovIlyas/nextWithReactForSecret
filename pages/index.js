@@ -17,7 +17,6 @@ const GridStyle = styled.div`
 
 const getDataApi = async (value = {min: undefined, max: undefined, brands: undefined}) => {
     const params = [];
-    console.log('params', params)
     if (value.min !== null && value.min !== undefined) {
         await params.push(['price[min]', value.min.toString()])
     }
@@ -34,7 +33,6 @@ const getDataApi = async (value = {min: undefined, max: undefined, brands: undef
     }
     const url = new URL('https://getlens-master.stage.dev.family/api/pages/kamery')
     url.search = new URLSearchParams(params).toString();
-    console.log(url);
     return await fetch(url).then(async res => {
         const data = await res.json();
         return {props: data};
@@ -44,10 +42,8 @@ const getDataApi = async (value = {min: undefined, max: undefined, brands: undef
 const Index = (props) => {
     const [data, setData] = useState(props);
     const handleSubmit = (value) => {
-        console.log(value);
-        getDataApi(value).then(data => setData(data.props)).catch(err => console.log('ERRRRRRRRRRRROR'));
+        getDataApi(value).then(data => setData(data.props));
     }
-    console.log(data);
     return (
         <GridStyle>
             <Filter handleSubmit={handleSubmit} meta={data.meta}/>

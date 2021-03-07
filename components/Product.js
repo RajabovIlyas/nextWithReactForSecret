@@ -107,7 +107,7 @@ export default (props) => {
                 </div>
                 <div>
                     <ButtonStyle><Text size={'14px'}>В корзину</Text></ButtonStyle>
-                    <img src='/img/svg/Like.svg'/>
+                    <img src='../public/img/like.svg'/>
                 </div>
             </BlockNewBottom>
         </ProductStyle>
