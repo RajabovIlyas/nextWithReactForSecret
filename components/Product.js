@@ -89,6 +89,7 @@ width: 100%;
 
 export default (props) => {
     const styleNew = {position: 'relative', bottom: '26px'};
+    const price=parseFloat(props.price)
     return (
         <ProductStyle>
             <div>
@@ -102,12 +103,12 @@ export default (props) => {
                             bottom={props.is_new ? '26px' : null}>
                 <Text height={'40px'} bottom={'11px'}>{props.title}</Text>
                 <div className='price_style'>
-                    <BoldText>{parseFloat(props.price)} ₽</BoldText>
+                    <BoldText>{price.toLocaleString()} ₽</BoldText>
                     {props.is_new ? <Text size={'11px'}>Новое</Text> : null}
                 </div>
                 <div>
                     <ButtonStyle><Text size={'14px'}>В корзину</Text></ButtonStyle>
-                    <img src='../public/img/like.svg'/>
+                    <img src='/img/like.svg'/>
                 </div>
             </BlockNewBottom>
         </ProductStyle>
