@@ -71,16 +71,21 @@ bottom:${props => props.bottom || 0};
   
 @media (max-width: 768px) {
 width: 100%;
-  position: initial;
-  bottom: 0;
-  & h4:first-child{
+  position: relative;
+  bottom: 4px;
+  &>h4:first-child{
   margin-bottom: 9px;
   }
-  & div:nth-child(n){
+  &>div:nth-child(n){
   margin-bottom: 16px;
   }
-  & div:last-child{
+  &>div:last-child{
   margin-bottom: 0;
+  }
+}
+@media (max-width: 420px) {
+  & h4:first-child{
+  font-size: 12px;
   }
   
 }
@@ -89,7 +94,7 @@ width: 100%;
 
 export default (props) => {
     const styleNew = {position: 'relative', bottom: '26px'};
-    const price=parseFloat(props.price)
+    const newTitle=props.title.length>30?props.title.slice(0, 27).concat('...'):props.title;
     return (
         <ProductStyle>
             <div>
@@ -103,7 +108,7 @@ export default (props) => {
                             bottom={props.is_new ? '26px' : null}>
                 <Text height={'40px'} bottom={'11px'}>{props.title}</Text>
                 <div className='price_style'>
-                    <BoldText>{price.toLocaleString()} ₽</BoldText>
+                    <BoldText>{parseFloat(props.price).toLocaleString()} ₽</BoldText>
                     {props.is_new ? <Text size={'11px'}>Новое</Text> : null}
                 </div>
                 <div>
