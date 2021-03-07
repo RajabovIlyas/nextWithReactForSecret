@@ -11,6 +11,12 @@ const GridContent=styled.div`
   @media (max-width: 768px) {
     margin:0;
     grid-template-columns: 1fr;
+    &>div{
+    border-bottom: 1px solid #E6E6E6;
+    }
+    &>div:last-child{
+    border-bottom: 0;
+    }
   }
 `
 

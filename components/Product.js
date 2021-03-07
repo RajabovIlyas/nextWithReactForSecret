@@ -16,7 +16,7 @@ display: flex;
 align-items: start;
 border: 0;
 padding-bottom: 12px;
-border-bottom: 1px solid #E6E6E6;
+
 margin-top: 6px;
 }
 `
